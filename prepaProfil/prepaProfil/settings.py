@@ -5,7 +5,7 @@ BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
 load_dotenv()
 
-SECRET_KEY = os.environ.get("DJANGO_SECRET_KEY", os.getenv('DB_PASSWORD'))
+SECRET_KEY = os.environ.get("SECRET_KEY", os.getenv('DB_PASSWORD'))
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
