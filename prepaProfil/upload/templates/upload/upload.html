@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <title>Préparation Profil - Upload</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f8f9fa;
+            color: #212529;
+            display: flex;
+            justify-content: center;
+            align-items: flex-start;
+            padding-top: 50px;
+        }
+        .container {
+            background-color: #ffffff;
+            padding: 30px;
+            border-radius: 8px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+            width: 450px;
+        }
+        h1 {
+            text-align: center;
+            margin-bottom: 25px;
+            color: #333333;
+        }
+        label {
+            font-weight: bold;
+            display: block;
+            margin-top: 15px;
+        }
+        input[type="file"] {
+            display: block;
+            margin-top: 5px;
+            width: 100%;
+        }
+        button {
+            margin-top: 25px;
+            width: 100%;
+            padding: 10px;
+            background-color: #007bff;
+            color: #ffffff;
+            border: none;
+            border-radius: 5px;
+            font-size: 16px;
+            cursor: pointer;
+        }
+        button:hover {
+            background-color: #0056b3;
+        }
+        .message {
+            margin-top: 20px;
+            padding: 10px;
+            border-radius: 5px;
+        }
+        .success {
+            background-color: #d4edda;
+            color: #155724;
+        }
+        .error {
+            background-color: #f8d7da;
+            color: #721c24;
+        }
+        a.download-link {
+            display: inline-block;
+            margin-top: 15px;
+            color: #007bff;
+            text-decoration: none;
+            font-weight: bold;
+        }
+        a.download-link:hover {
+            text-decoration: underline;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Préparation Profil</h1>
+
+        <form method="POST" enctype="multipart/form-data">
+            {% csrf_token %}
+
+            <label>PDF du {{ pdf_j_label }} :</label>
+            <input type="file" name="pdf_j" accept="application/pdf" required>
+
+            <label>PDF du {{ pdf_j1_label }} :</label>
+            <input type="file" name="pdf_j1" accept="application/pdf" required>
+
+            <label>Stock de masse (.xlsx) :</label>
+            <input type="file" name="xlsx_file" accept=".xlsx" required>
+
+            <button type="submit">Valider</button>
+        </form>
+
+        {% if success %}
+            <div class="message success">
+                Traitement terminé avec succès !
+                {% if download_path %}
+                    <a class="download-link" href="{{ download_path }}" target="_blank">Télécharger le fichier généré</a>
+                {% endif %}
+            </div>
+        {% endif %}
+
+        {% if error %}
+            <div class="message error">
+                {{ error }}
+            </div>
+        {% endif %}
+
+    </div>
+</body>
+</html>
